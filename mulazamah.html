@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Mulazamah - MQ Mobile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "error": "#ba1a1a",
+          "on-background": "#1a1c1c",
+          "on-primary": "#ffffff",
+          "primary-container": "#d4af37",
+          "surface-container-low": "#f3f3f4",
+          "tertiary": "#5e5e5e",
+          "surface-container-lowest": "#ffffff",
+          "outline": "#7f7663",
+          "surface-container": "#eeeeee",
+          "on-surface": "#1a1c1c",
+          "background": "#f9f9f9",
+          "tertiary-fixed": "#e2e2e2",
+          "on-primary-container": "#554300",
+          "on-tertiary": "#ffffff",
+          "on-secondary": "#ffffff",
+          "tertiary-container": "#b3b3b3",
+          "surface-container-high": "#e8e8e8",
+          "on-surface-variant": "#4d4635",
+          "secondary": "#705d00",
+          "primary": "#735c00",
+          "surface": "#f9f9f9",
+          "primary-fixed": "#ffe088",
+          "secondary-container": "#fcd400",
+          "surface-bright": "#f9f9f9"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"
+        },
+        "spacing": {
+          "xs": "4px", "xxl": "64px", "lg": "24px", "margin": "24px",
+          "xl": "40px", "unit": "4px", "sm": "8px", "gutter": "16px", "md": "16px"
+        },
+        "fontFamily": {
+          "headline-display": ["Noto Serif"], "body-md": ["Work Sans"],
+          "body-lg": ["Work Sans"], "headline-lg": ["Noto Serif"],
+          "label-caps": ["Work Sans"], "headline-md": ["Noto Serif"]
+        },
+        "fontSize": {
+          "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+          "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+          "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
+        }
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  body { min-height: max(884px, 100dvh); }
+</style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen">
+
+<!-- TopAppBar -->
+<header class="bg-white/80 backdrop-blur-md border-b border-yellow-500/10 fixed top-0 w-full z-50 shadow-[0_2px_15px_-3px_rgba(212,175,55,0.08)]">
+  <div class="flex items-center px-6 h-16 gap-4">
+    <a href="main_menu.html" class="text-yellow-600 active:scale-95 duration-200">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </a>
+    <h1 class="font-serif uppercase tracking-[0.2em] text-sm text-yellow-600">Mulazamah</h1>
+  </div>
+</header>
+
+<main class="pt-24 px-6 max-w-lg mx-auto pb-12">
+
+  <!-- Profile Section -->
+  <section class="mb-xl text-center">
+    <div class="inline-block relative mb-4">
+      <div class="w-24 h-24 rounded-full border-2 border-primary-container p-1 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+        <div class="w-full h-full rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+          <span class="material-symbols-outlined text-primary text-5xl">person</span>
+        </div>
+      </div>
+    </div>
+    <h2 id="m-nama" class="font-headline-lg text-headline-lg text-on-surface">Memuat...</h2>
+    <p id="m-id" class="font-label-caps text-label-caps text-tertiary mt-1">ID: -</p>
+  </section>
+
+  <!-- Payment Summary -->
+  <section class="flex flex-col gap-4 mb-xl">
+    <div class="bg-white border border-yellow-500/10 p-md rounded-xl shadow-[0_4px_12px_-2px_rgba(212,175,55,0.08)] text-center w-full">
+      <p class="font-label-caps text-[10px] text-tertiary mb-xs">TERBAYAR</p>
+      <p id="m-terbayar" class="font-headline-md text-xl text-primary font-bold">Rp -</p>
+    </div>
+    <div class="bg-white border border-yellow-500/10 p-md rounded-xl shadow-[0_4px_12px_-2px_rgba(212,175,55,0.08)] text-center w-full">
+      <p class="font-label-caps text-[10px] text-tertiary mb-xs">KEKURANGAN</p>
+      <p id="m-kekurangan" class="font-headline-md text-xl text-error font-bold">Rp -</p>
+    </div>
+    <div class="bg-white border border-yellow-500/10 p-md rounded-xl shadow-[0_4px_12px_-2px_rgba(212,175,55,0.08)] text-center w-full">
+      <p class="font-label-caps text-[10px] text-tertiary mb-xs">SEHARUSNYA</p>
+      <p id="m-seharusnya" class="font-headline-md text-xl text-on-surface font-bold">Rp -</p>
+    </div>
+  </section>
+
+  <!-- Tombol Tahun -->
+  <section class="grid grid-cols-3 gap-4">
+    <button class="flex flex-col items-center justify-center p-4 bg-white border border-yellow-500/10 rounded-xl shadow-[0_4px_12px_-2px_rgba(212,175,55,0.05)] hover:bg-yellow-50 duration-200 group">
+      <div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center mb-3 group-hover:scale-110 duration-200">
+        <span class="material-symbols-outlined text-primary">receipt_long</span>
+      </div>
+      <span class="font-label-caps text-[10px] text-on-surface tracking-wider uppercase text-center">SEMUA TAHUN</span>
+    </button>
+    <button class="flex flex-col items-center justify-center p-4 bg-white border border-yellow-500/10 rounded-xl shadow-[0_4px_12px_-2px_rgba(212,175,55,0.05)] hover:bg-yellow-50 duration-200 group">
+      <div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center mb-3 group-hover:scale-110 duration-200">
+        <span class="material-symbols-outlined text-primary">receipt_long</span>
+      </div>
+      <span class="font-label-caps text-[10px] text-on-surface tracking-wider uppercase text-center">1446H.</span>
+    </button>
+    <button class="flex flex-col items-center justify-center p-4 bg-white border border-yellow-500/10 rounded-xl shadow-[0_4px_12px_-2px_rgba(212,175,55,0.05)] hover:bg-yellow-50 duration-200 group">
+      <div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center mb-3 group-hover:scale-110 duration-200">
+        <span class="material-symbols-outlined text-primary">receipt_long</span>
+      </div>
+      <span class="font-label-caps text-[10px] text-on-surface tracking-wider uppercase text-center">1447H.</span>
+    </button>
+    <button class="flex flex-col items-center justify-center p-4 bg-white border border-yellow-500/10 rounded-xl shadow-[0_4px_12px_-2px_rgba(212,175,55,0.05)] hover:bg-yellow-50 duration-200 group">
+      <div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center mb-3 group-hover:scale-110 duration-200">
+        <span class="material-symbols-outlined text-primary">receipt_long</span>
+      </div>
+      <span class="font-label-caps text-[10px] text-on-surface tracking-wider uppercase text-center">1448H.</span>
+    </button>
+    <button class="flex flex-col items-center justify-center p-4 bg-white border border-yellow-500/10 rounded-xl shadow-[0_4px_12px_-2px_rgba(212,175,55,0.05)] hover:bg-yellow-50 duration-200 group">
+      <div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center mb-3 group-hover:scale-110 duration-200">
+        <span class="material-symbols-outlined text-primary">receipt_long</span>
+      </div>
+      <span class="font-label-caps text-[10px] text-on-surface tracking-wider uppercase text-center">1449H.</span>
+    </button>
+    <button class="flex flex-col items-center justify-center p-4 bg-white border border-yellow-500/10 rounded-xl shadow-[0_4px_12px_-2px_rgba(212,175,55,0.05)] hover:bg-yellow-50 duration-200 group">
+      <div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center mb-3 group-hover:scale-110 duration-200">
+        <span class="material-symbols-outlined text-primary">receipt_long</span>
+      </div>
+      <span class="font-label-caps text-[10px] text-on-surface tracking-wider uppercase text-center">1450H.</span>
+    </button>
+  </section>
+
+</main>
+
+<script>
+  const dataMurid = JSON.parse(localStorage.getItem('userLogin'));
+
+  if (!dataMurid) {
+    window.location.href = 'index.html';
+  } else {
+    const formatIDR = (angka) => new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(angka || 0);
+
+    document.getElementById('m-nama').textContent = dataMurid.nama;
+    document.getElementById('m-id').textContent = 'ID: ' + (dataMurid.id_murid ?? '-');
+    document.getElementById('m-terbayar').textContent = formatIDR(dataMurid.terbayar);
+    document.getElementById('m-kekurangan').textContent = formatIDR(dataMurid.tunggakan);
+    document.getElementById('m-seharusnya').textContent = formatIDR(dataMurid.seharusnya);
+  }
+</script>
+
+</body>
+</html>

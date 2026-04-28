@@ -122,7 +122,7 @@
 <div class="flex items-center gap-4">
 <div>
 <p class="text-label-caps font-label-caps text-secondary uppercase opacity-70" style="">Selamat datang,</p>
-<h1 id="user-display">Memuat...</h1>
+<h1 id="user-nama" class="text-headline-md font-headline-md text-primary tracking-tight" style="">Memuat...</h1>
 </div>
 </div>
 <div class="flex items-center gap-3">
@@ -140,9 +140,7 @@
 <div class="flex justify-between items-start">
 <div>
 <p class="text-label-caps font-label-caps text-primary-fixed mb-xs" style="">TUNGGAKAN MULAZAMAH</p>
-<h2 id="tunggakan-display" class="text-3xl font-serif font-bold text-white tracking-tight">
-    Rp 0
-</h2>
+<h2 id="user-tunggakan" class="text-headline-lg font-headline-lg text-white" style="">Rp -</h2>
 </div>
 <span class="material-symbols-outlined text-primary-fixed text-3xl" data-icon="token" style="">token</span>
 </div>
@@ -180,7 +178,7 @@
 <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-yellow-50 group-hover:bg-yellow-100 transition-colors"><img alt="m-Commerce" class="w-7 h-7 object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0ugDRrkMXAiDdJ7MZ_zkLpkJq3n4xTrr2qB5LOnk3fNmaBDluAgRIUK9MgizSOXZHpxlVVJLkL4_fwyUJqovpyxP58c-Kjy1htQf8wXJ8glNerYgrEwU3ldcbtAOdzEQZGPjmaVIsBtjyDWjpmbkUVmQ7aGjG4iCX0ayxFACiWa9t4SJbqxgBwm9ogb6CYZyn4UlLDGmAdCyK9AEIBiZqaKCEx42HYBC7qszMSIjBoj3m1sYp_ia-yzhsDQbh1cPZfjvUBl7B6KbQ6U" style=""/></div>
 <span class="text-[11px] font-label-caps text-on-surface-variant uppercase text-center" style="">TABUNGAN</span>
 </button>
-<button class="flex flex-col items-center gap-sm p-md bg-white border border-yellow-500/10 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-95 group" style="">
+<button class="flex flex-col items-center gap-sm p-md bg-white border border-yellow-500/10 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-95 group" onclick="window.location.href='mulazamah.html'" style="">
 <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-yellow-50 group-hover:bg-yellow-100 transition-colors">
 <img alt="Cardless" class="w-7 h-7 object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uiCVFppZ7qw9ENNcpo3ogBrja9oP5owEMh49GDWoq3shZngaJnhz9owm_S6rE2_vqpTHY4ErGHN3woJZ7E_0soVWQhgtQvCggFNjbO4qlugVEQoi0Ty9Mqz3bhgn2duW46uqo0wxzZvmOTQ56ABu1fLxUsw5QZkXucYee9BJPbS3H6-mn5_hZtD9WyKZFC1BcjObgrXkkvPBGk53SBv8I6DgEoq8YmIRU1GaNi446XYtdbuRlVZ_EdXrOUaeBP6oCLEwgdgthm3PzM" style=""/>
 </div>
@@ -245,25 +243,24 @@
 </nav>
 
 <script>
-  // Ambil data dari localStorage
   const userData = JSON.parse(localStorage.getItem('userLogin'));
 
   if (!userData) {
-    window.location.href = 'login.html'; // Tendang balik jika belum login
+    // Belum login, tendang ke halaman login
+    window.location.href = 'index.html';
   } else {
-    // Update tampilan nama
-    document.getElementById('user-display').innerText = userData.nama;
-    
-    // Update tampilan tunggakan dengan format Rupiah
-    const nominal = new Intl.NumberFormat('id-ID', {
+    // Tampilkan nama murid
+    document.getElementById('user-nama').textContent = userData.nama;
+
+    // Tampilkan tunggakan dengan format Rupiah
+    const formatIDR = (angka) => new Intl.NumberFormat('id-ID', {
       style: 'currency',
       currency: 'IDR',
       minimumFractionDigits: 0
-    }).format(userData.tunggakan);
-    
-    document.getElementById('tunggakan-display').innerText = nominal;
+    }).format(angka || 0);
+
+    document.getElementById('user-tunggakan').textContent = formatIDR(userData.tunggakan);
   }
 </script>
 
-</body>
-</html>
+</body></html>

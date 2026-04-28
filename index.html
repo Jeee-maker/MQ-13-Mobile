@@ -189,27 +189,49 @@
 <div class="fixed bottom-0 left-0 w-full h-1 metallic-gold opacity-50"></div>
 
 <script>
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwV2CrkIVXwJS1KSubggnso6XhCbQCUQ5gP_Ui3oTZRi3Qwx57P1WtGiefNTUQlM0fv/exec';
-const loginForm = document.querySelector('form');
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8T7qTkS03twPFYW5Z1I8N9Fv9vqrMwtTfaStxnuVza21c8ipAjQr59I-SpDJkL1vx/exec';
+  const loginForm = document.querySelector('form');
+  const submitBtn = loginForm.querySelector('button[type="submit"]');
+  const submitLabel = submitBtn.querySelector('span');
 
-loginForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const usernameInput = document.getElementById('username').value;
-  const passwordInput = document.getElementById('password').value;
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
 
-  fetch(`${scriptURL}?nama=${usernameInput}`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === "success" && data.password == passwordInput) {
-        // Simpan data ke memori browser
-        localStorage.setItem('userLogin', JSON.stringify(data));
-        // Pindah ke halaman menu utama
-        window.location.href = 'main_menu.html';
-      } else {
-        alert("Username atau Password salah!");
-      }
-    });
-});
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!username || !password) {
+      alert('Username dan password tidak boleh kosong!');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitLabel.textContent = 'Memuat...';
+
+    fetch(`${SCRIPT_URL}?nama=${encodeURIComponent(username)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success' && data.password == password) {
+          localStorage.setItem('userLogin', JSON.stringify({
+            nama: data.nama,
+            tunggakan: data.tunggakan,
+            terbayar: data.terbayar,
+            seharusnya: data.seharusnya,
+            id_murid: data.id ?? '-'
+          }));
+          window.location.href = 'main_menu.html';
+        } else {
+          alert('Username atau password salah!');
+          submitBtn.disabled = false;
+          submitLabel.textContent = 'Masuk';
+        }
+      })
+      .catch(() => {
+        alert('Gagal terhubung ke server. Cek koneksi internet kamu.');
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Masuk';
+      });
+  });
 </script>
 
 </body></html>
